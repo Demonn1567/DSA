@@ -25,9 +25,9 @@ class SLL {
             cout<<"Linked List empty";
             return;
         }
-        Node* temp = head;
+        
         head = head->next;
-        delete temp;
+        
     }
     void deleteFromEnd() {
         if(!head) {
