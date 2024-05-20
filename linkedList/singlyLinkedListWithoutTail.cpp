@@ -74,26 +74,24 @@ class SLL {
 
     void deleteElement(int element) {
         if(!head) {
-            cout<<"Linked List empty";
+            cout<<"Linked list empty";
             return;
         }
-        if(head->value ==element) {
+        if(head->value == element) {
             Node* temp = head;
             head = head->next;
             delete temp;
         }
         else {
             Node* temp = head;
-            Node* prev = NULL;
-            while(temp) {
-                if(temp->value == element) {
-                    prev->next = prev->next->next;
-                    delete temp;
-                    break;
-                }
-                prev = temp;
+            while(temp->next->value!=element && temp->next!=NULL) {
                 temp = temp->next;
             }
+            temp->next = temp->next->next;
+            
+            
+            
+            
         }
     }
 
@@ -135,7 +133,7 @@ class SLL {
         else {
             Node* temp = head;
             int currentPosition = 1;
-            while(currentPosition < position-1 && temp) {
+            while(currentPosition < position-1 && temp!=NULL) {
                 temp = temp->next;
                 currentPosition++;
             }
@@ -164,6 +162,12 @@ class SLL {
             }
         }
     }
+    void fun1(Node* head) {
+        if(!head) return;
+
+        fun1(head->next);
+        cout<<head->value<<" ";
+    }
 
     
 
@@ -190,8 +194,13 @@ int main() {
     sl1.insertAtStart(4);
     sl1.insertAtStart(2);
     sl1.insertAtEnd(12);
-    sl1.insertBeforeElement(2,11);
-    
+    sl1.insertAtPosition(7,0);
+    sl1.insertBeforeElement(0,1);
+    sl1.deleteElement(0);
+
     sl1.displayNodes();
+    //sl1.fun1(sl1.head);
+    
+    
     return 0;
 }

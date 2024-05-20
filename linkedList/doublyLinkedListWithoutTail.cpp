@@ -202,18 +202,29 @@ class DLL {
         temp->prev = NULL;
         delete temp;
     }
-    void deleteNode(Node* temp) {
-        Node* back = temp->prev;
-        Node* front = temp->next;
-
-        if(front==NULL) {
-            back->next = NULL;
-            delete temp;
+    void deleteNode(int element) {
+        if(!head) {
+            cout<<"Linked list empty";
             return;
         }
-        back->next = front;
-        front->prev =  back;
-        delete temp;
+        if(head->value==element) {
+            head = head->next;
+            head->prev = NULL;
+        }
+        else 
+        {
+            Node* temp = head;
+            while(temp->next->value!=element) {
+                temp = temp->next;
+            }
+            if(temp->next->next==NULL) {
+                temp->next = NULL;
+            }
+            else {
+                temp->next = temp->next->next;
+                temp->next->prev = temp;
+            }
+        }
 
     }
 
@@ -228,16 +239,34 @@ class DLL {
             temp = temp->next;
         }
     }
+
+    
     
 
 
 };
+Node* reverseDLL(Node* head) {
+        if(!head || head->next==NULL) return head;
+
+        Node* back  = NULL;
+        Node* curr = head;
+
+        while(curr!=NULL) {
+            back = curr->prev;
+            curr->prev = curr->next;
+            curr->next = back;
+            curr = curr->prev;
+        }
+
+        return back->prev;
+        
+    }
+
 
 int main() {
     DLL dl1;
 
-    vector<int> arr = {2,4,6,8,10};
-    convertArrtoDLL(arr);
+    
     
     dl1.insertAtStart(10);
     dl1.insertAtStart(8);
@@ -246,6 +275,14 @@ int main() {
     dl1.insertAtStart(2);
     dl1.insertAtEnd(12);
     dl1.insertBeforeElement(12, 11);
+    dl1.deleteNode(12);
+
+    dl1.head = reverseDLL(dl1.head);
+    Node* temp = dl1.head;
+    while(temp) {
+        cout<<temp->value<<" ";
+        temp = temp->next;
+    }
     
-    dl1.traverse();
+    //dl1.traverse();
 }

@@ -80,7 +80,7 @@ Node* bubbleSort(Node* head) {
             prev = current;
             current = current->next;
         }
-         
+        
     } while (swapped);
 
     return head;

@@ -20,7 +20,7 @@ class CSLL {
     CSLL() {
         head = NULL;
     }
-    void insertAtEnd(int value) {
+    void insertAtStart(int value) {
         Node* n1 = new Node(value);
         if(!head) {
             head = n1;
@@ -33,41 +33,39 @@ class CSLL {
             }
             temp->next = n1;
             n1->next = head;
+            head = n1;
         }
-    }
+    } 
 
-    void insertAtStart(int value) {
+    void insertAtEnd(int value) {
         Node* n1 = new Node(value);
         if(!head) {
-            head = n1;
+            head=  n1;
             head->next = head;
         }
-        else{
-            
+        else {
             Node* temp = head;
             while(temp->next!=head) {
                 temp = temp->next;
             }
             temp->next = n1;
             n1->next = head;
-            head = n1;
         }
-    }
-    
-    void insertAtPosition(int position,int value) 
-    {
+    } 
+
+    void insertAtPosition(int position, int value) {
         Node* n1 = new Node(value);
-        if(position == 1) {
+        if(position==1) {
             if(!head) {
                 head = n1;
                 head->next = head;
             }
             else {
                 Node* temp = head;
-                while(temp->next!=head){
+                while(temp->next!=head) {
                     temp = temp->next;
                 }
-                temp->next = n1;
+                temp->next  =n1;
                 n1->next = head;
                 head = n1;
             }
@@ -92,13 +90,31 @@ class CSLL {
         }
     }
 
-    //deletion operations
+    void insertBeforeElement(int elementBefore, int value) {
+        Node* n1 = new Node(value);
+            if(head->value == elementBefore) {
+                Node* temp = head;
+                while(temp->next!=head) {
+                    temp = temp->next;
+                }
+                temp->next =n1;
+                n1->next = head;
+                head = n1;
+            }
+            else {
+                Node* temp = head;
+                while(temp->next->value!=elementBefore) {
+                    temp = temp->next;
+                }
+                n1->next = temp->next;
+                temp->next = n1;
+            }
+        }
+
     void deleteAtStart() {
         if(!head) {
-            cout<<"Linked list empty";
             return;
         }
-        
         Node* temp = head;
         while(temp->next!=head) {
             temp = temp->next;
@@ -109,23 +125,22 @@ class CSLL {
 
     void deleteAtEnd() {
         if(!head) {
-            cout<<"Linked list empty";
             return;
         }
         Node* temp = head;
         while(temp->next->next!=head) {
-            temp = temp->next;
+            temp  = temp->next;
         }
+        Node* temp2 = temp->next;
         temp->next = head;
+        delete temp2;
     }
 
-    void deleteFromPosition(int position) {
+    void deleteAtPosition(int position) {
         if(!head) {
-            cout<<"Linked list empty";
             return;
         }
-        if(position == 1) {
-            
+        if(position==1) {
             Node* temp = head;
             while(temp->next!=head) {
                 temp = temp->next;
@@ -135,7 +150,7 @@ class CSLL {
         }
         else {
             Node* temp = head;
-            int currentPosition =1;
+            int currentPosition = 1;
             while(currentPosition < position -1 && temp) {
                 temp = temp->next;
                 currentPosition++;
@@ -151,11 +166,50 @@ class CSLL {
         }
     }
 
-    void traverse() {
+    void deleteElement(int element) {
         if(!head) {
-            cout<<"Linked list empty";
             return;
         }
+        if(head->value ==element) {
+            Node* temp = head;
+            while(temp->next!=head) {
+                temp = temp->next;
+            }
+            head = head->next;
+            temp->next = head;
+        }
+        else {
+            Node* temp = head;
+            while(temp->next->value!=element) {
+                temp = temp->next;
+            }
+            if(temp) {
+                if(temp->next->next ==head) {
+                    temp->next = head;
+                }
+                else {
+                    temp->next = temp->next->next;
+                }
+            }
+        }
+    }
+
+    Node* middleLinkedList(Node* head) {
+        if(!head) return head;
+
+        Node* slow = head;
+        Node* fast = head;
+        while(fast!=NULL || fast->next!=NULL) {
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        return slow;
+    }
+    
+
+    void traverse() {
+        if(!head) return;
+
         Node* temp = head;
         while(temp->next!=head) {
             cout<<temp->value<<" ";
@@ -163,25 +217,23 @@ class CSLL {
         }
         cout<<temp->value;
     }
-
 };
 
 int main() {
     CSLL csl1;
-    csl1.insertAtEnd(2);
-    csl1.insertAtEnd(4);
-    csl1.insertAtEnd(6);
-    csl1.insertAtEnd(8);
-    csl1.insertAtStart(0);
-    csl1.insertAtPosition(6,-1);
-    //csl1.deleteAtStart();
-    //csl1.deleteAtEnd();
-    csl1.deleteFromPosition(6);
+    csl1.insertAtStart(4);
+    csl1.insertAtStart(3);
+    csl1.insertAtStart(2);
+    csl1.insertAtStart(1);
+    csl1.insertAtEnd(5);
+    csl1.insertAtPosition(6,0);
+    csl1.insertBeforeElement(0,-1);
+    csl1.deleteAtStart();
+    csl1.deleteAtEnd();
+    csl1.deleteAtPosition(5);
+    csl1.deleteElement(5);
 
-    
+
     csl1.traverse();
-
-
     return 0;
-
 }
