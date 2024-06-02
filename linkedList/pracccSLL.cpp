@@ -285,6 +285,32 @@ Node* sortLL012() {
             temp = temp->next;
         }
     }
+
+    void removeDuplicates(Node* head) {
+        if(!head || head->next ==NULL) {
+            return;
+        }
+        Node* temp = NULL;
+        Node* it = NULL;
+        Node* current =head;
+
+        while(current) {
+            temp  =current;
+            it = current->next;
+
+            while(it) {
+                if(current->value == it->value) {
+                    temp->next = it->next;
+                }
+                else {
+                    temp = it;
+                }
+                it = it->next;
+            }
+            current = current->next;
+        }
+    }
+
 };
 
 Node* reverseSLL(Node* head) {
@@ -324,7 +350,8 @@ int main() {
     sl1.insertAtEnd(3);
     sl1.insertAtEnd(2);
     sl1.insertAtEnd(0);
-    sl1.deletenthNode(sl1.head, 2);
+    //sl1.deletenthNode(sl1.head, 2);
+    sl1.removeDuplicates(sl1.head);
 
     /* bool x = sl1.isPalindrome(sl1.head);
     cout<<x; */

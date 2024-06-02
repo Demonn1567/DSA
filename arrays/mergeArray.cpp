@@ -29,8 +29,8 @@ void merging(int a[],int b[],int c[],int size1, int size2) {
 }
 
 int main() {
-    int arr1[] = {1,3,5};
-    int arr2[] = {2,4,6};
+    int arr1[] = {5,7,2,1,7,8};
+    int arr2[] = {8,3,1,9,2,1,0};
     int size1 = sizeof(arr1)/sizeof(arr1[0]);
     int size2 = sizeof(arr2)/sizeof(arr2[0]);
     int size3 = size1 +size2;

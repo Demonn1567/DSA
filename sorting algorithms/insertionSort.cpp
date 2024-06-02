@@ -14,7 +14,7 @@ void insertionSort(int arr[], int size) {
 }
 
 int main() {
-    int arr[] = {5,4,3,2,1};
+    int arr[] = {6,3,1,5,7,1,46,43,89,11,36};
     int size = sizeof(arr)/sizeof(arr[0]);
     cout<<"The original array is : ";
     for(int i=0;i<size;i++) {

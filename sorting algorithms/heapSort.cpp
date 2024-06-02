@@ -21,6 +21,7 @@ void Heapify(int i, int arr[], int size) {
 int main() {
     int arr[] = {11,4,7,23,3,5};
     int size = sizeof(arr)/sizeof(arr[0]);
+    
     for(int i = (size/2)-1;i>=0;i--) {
         Heapify(i,arr,size);
     }

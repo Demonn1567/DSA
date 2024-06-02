@@ -59,6 +59,8 @@ void quickSort(int arr[], int first, int last) {
     quickSort(arr,pi+1,last);
 }
 
+
+
 //mergeSort
 void merge(int arr[], int low, int mid, int high) {
     int l = mid-low+1;
@@ -98,18 +100,118 @@ void mergeSort(int arr[], int low, int high) {
     merge(arr,low,mid,high);
 }
 
+//countingSort- only works for elements of single digits
+void countingSort(int arr[], int size) {
+    int max = arr[0];
+    for(int i=1;i<size;i++) {
+        if(arr[i]>max) {
+            max = arr[i];
+        }
+    }
+    int count[max+1]; //initalize the array to {0}, though this vs code doesnot Allow
+    for(int i=0;i<size;i++) {
+        count[arr[i]]++;
+    }
+    int size1 = sizeof(count)/sizeof(count[0]);
+    for(int i=1;i<size1;i++) 
+    {
+        count[i]+=count[i-1];
+    }
+    int output[size];  //initalize the array to {0}, though this vs code doesnot Allow
+    for(int i=size-1;i>=0;i--) {
+        output[count[arr[i]]-1] = arr[i];
+        count[arr[i]]--;
+    }
+    for(int i=0;i<size;i++) {
+        arr[i] = output[i];
+    } 
+}
+
+//radixSort - similar to counting sort but also works for multiple digits as well
+void countingRadixSort(int place, int arr[], int size) {
+    int max = (arr[0]/place)%10;
+    for(int i=1;i<size;i++) {
+        if((arr[i]/place)%10>max) {
+            max = (arr[i]/place)%10;
+        }
+    }
+    int count[max+1];
+    for(int i=0;i<size;i++) {
+        count[(arr[i]/place)%10]++;
+    }
+    int size1 = sizeof(count)/sizeof(count[0]);
+    for(int i=1;i<size1;i++) {
+        count[i]+=count[i-1];
+    }
+    int output[size];
+    for(int i=size-1;i>=0;i--) {
+        output[count[(arr[i]/place)%10]-1] = arr[i];
+        count[(arr[i]/place)%10]--;
+    }
+    for(int i=0;i<size;i++) {
+        arr[i] = output[i];
+    }
+}
+void radixSort(int arr[], int size) {
+    int max = arr[0];
+    for(int i=1;i<size;i++) {
+        if(arr[i]>max) {
+            max = arr[i];
+        }
+    }
+    int place = 1;
+    while(max!=0) {
+        countingRadixSort(place,arr,size);
+        place*=10;
+        max/=10;
+    }
+}
+
+//creating heapify for heapSort
+void heapify(int i, int arr[], int size) {
+    int li = 2*i+1;
+    int ri = 2*i+2;
+    int largest = i;
+    if(li<size && arr[li]>arr[largest]) {
+        largest = li;
+    }
+    if(ri<size && arr[ri]>arr[largest]) {
+        largest = ri;
+    }
+    if(largest!=i) {
+    swap(arr[i],arr[largest]);
+    heapify(largest,arr,size);
+    }
+}
+
 
 int main() {
-    int arr[] = {45,3,71,2,9,11,0,3,2,6};
+    /* int arr[] = {45,3,71,2,9,11,0,3,2,6};
     int size = sizeof(arr)/sizeof(arr[0]);
     cout<<"The original array is : ";
     for(auto i : arr) {
         cout<<i<<" ";
     }
-    mergeSort(arr,0,size-1);
+    countingSort(arr,size);
     cout<<endl<<"The sorted array is : ";
     for(auto i : arr) {
         cout<<i<<" ";
+    } */
+
+    //next whole part is specifically for heapSort
+    int arr[] = {45,3,71,2,9,11,0,3,2,6};
+    int size = sizeof(arr)/sizeof(arr[0]);
+    for(int i=(size/2)-1;i>=0;i--) {
+        heapify(i,arr,size);
     }
+
+    for(int i=size-1;i>=0;i--) {
+        swap(arr[0],arr[i]);
+        heapify(0,arr,i);
+    }
+    for(auto i : arr) {
+        cout<<i<<" ";
+    }
+
     return 0;
 }
