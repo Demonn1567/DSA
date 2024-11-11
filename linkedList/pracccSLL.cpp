@@ -20,6 +20,44 @@ class SLL {
     SLL() {
         head = NULL;
     }
+
+    SLL findCommon(SLL sl1, SLL sl2) {
+        SLL sl3;
+        Node* curr1 = sl1.head;
+        Node* curr2 = sl2.head;
+        Node* prev1 = NULL;
+        Node* prev2 = NULL;
+
+        while(curr1 && curr2) {
+            if(curr1->value  == curr2->value)  {
+                prev1->next = curr1->next;
+
+                prev2->next = curr2->next;       
+                Node* temp1 = curr1;
+                Node* temp2 = curr2;
+                curr1 = curr1->next;
+                curr2 = curr2->next;
+
+                temp1->next = sl3.head;
+                sl3.head = temp1;
+
+                temp2->next = sl3.head;
+                sl3.head = temp2;        
+
+            }
+            else if (curr1->value < curr2->value) {
+            prev1 = curr1;
+            curr1 = curr1->next;
+        } else {
+            prev2 = curr2;
+            curr2 = curr2->next;
+        }   
+        }
+        sl3.head = reverseSLL(sl3.head);
+        return sl3;
+
+    }
+
     void insertAtStart(int value) {
         Node* n1 = new Node(value);
         if(!head) {
@@ -330,7 +368,7 @@ Node* reverseSLL(Node* head) {
 
 
 int main() {
-    SLL sl1;
+    //SLL sl1;
     /* sl1.insertAtStart(2);
     sl1.insertAtStart(1);
     sl1.insertAtStart(0);
@@ -344,19 +382,45 @@ int main() {
     //sl1.head = reverseSLL(sl1.head);
     //sl1.oddEvenLinkedList();
     //sl1.head = sl1.sortLL012();
-    sl1.insertAtEnd(1);
-    sl1.insertAtEnd(2);
-    sl1.insertAtEnd(3);
-    sl1.insertAtEnd(3);
-    sl1.insertAtEnd(2);
-    sl1.insertAtEnd(0);
+    //sl1.insertAtEnd(1);
+    //sl1.insertAtEnd(2);
+   // sl1.insertAtEnd(3);
+   // sl1.insertAtEnd(3);
+    //sl1.insertAtEnd(2);
+    //sl1.insertAtEnd(0);
     //sl1.deletenthNode(sl1.head, 2);
-    sl1.removeDuplicates(sl1.head);
+    //sl1.removeDuplicates(sl1.head);
 
     /* bool x = sl1.isPalindrome(sl1.head);
     cout<<x; */
 
+    SLL sl1;
+    SLL sl2;
+
+    sl1.insertAtEnd(2);
+    sl1.insertAtEnd(3);
+    sl1.insertAtEnd(4);
+    sl1.insertAtEnd(5);
+    sl1.insertAtEnd(6);
+    sl1.insertAtEnd(7);
+
+    sl2.insertAtEnd(2);
+    sl2.insertAtEnd(4);
+    sl2.insertAtEnd(6);
+    sl2.insertAtEnd(8);
+
+    //sl1.traverse();
+
+
+    SLL sl3 = sl3.findCommon(sl1,sl2);
+    sl3.traverse();
+
+
+
+
+
+
     
-    sl1.traverse();
+    //sl1.traverse();
     return 0;
 }

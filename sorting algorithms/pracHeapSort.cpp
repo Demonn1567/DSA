@@ -14,7 +14,7 @@ void heapify(int i, int arr[], int size) {
         largest = ri;
     }
     if (largest != i) {
-        swap(arr[i], arr[largest]
+        swap(arr[i], arr[largest]);
         heapify(largest, arr, size);
     }
 }

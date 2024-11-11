@@ -49,7 +49,7 @@ bool cycleExist(int v, bool visited[], bool* recStack) {
     return false;
 }
 
-bool isCyclic() {
+bool isCyclic() { //for directed graph
     bool* visited = new bool[vertex];
     bool* recStack = new bool[vertex];
 
@@ -65,6 +65,21 @@ bool isCyclic() {
     return false;
 }
 
+bool checkForCycle(int v, int parent, bool isVisited[]) { //for undirected graph
+    isVisited[v] = true;
+    for(auto edge : graph[v]) {
+        if(!isVisited[edge->destn]) {
+            if(checkForCycle(edge->destn,v,isVisited)) {
+                return true;
+        }
+            else if(edge->destn!=parent) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 
 };
 
@@ -76,13 +91,13 @@ int main() {
     //g1.addEdge(4,0);
     //g1.addEdge(0,2);
     g1.addEdge(2,1); */
-
+    bool isVisited[g1.vertex];
     g1.addEdge(1,2);
     g1.addEdge(2,3);
     g1.addEdge(3,4);
     //g1.addEdge(4,1);
 
-    int x = g1.isCyclic();
+    int x = g1.checkForCycle(1,-1,isVisited);
     cout<<x;
 
     return 0;
