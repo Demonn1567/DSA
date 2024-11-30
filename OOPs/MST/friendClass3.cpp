@@ -1,4 +1,4 @@
-//friend functions as a member function of another clas
+//friend class
 #include <iostream>
 
 using namespace std;
@@ -42,19 +42,6 @@ int main() {
 
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // //friend functions as a member function of another clas
