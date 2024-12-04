@@ -114,7 +114,7 @@ public:
         }
         head = head->next;
         head->prev = NULL;
-        
+
     }
 
     void deleteFromEnd() {

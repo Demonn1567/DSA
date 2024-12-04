@@ -108,7 +108,7 @@ class DLL {
         if(!head) return;
 
         Node* temp = head;
-        head = head->next;
+        head = head->next; 
         head->prev = NULL;
     }
 
